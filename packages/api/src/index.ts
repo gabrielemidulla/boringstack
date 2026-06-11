@@ -15,8 +15,3 @@ export { MeController } from './me/me.controller.js';
 export { apiEnv } from './env.js';
 export { createMergedOpenApiDocument } from './openapi/create-merged-openapi.js';
 export { mergeOpenApiDocuments } from './openapi/openapi-merge.js';
-export type {
-  HelloResponse,
-  HealthCheckResponse,
-  MeResponse,
-} from './types.js';

@@ -1,7 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 import { DatabaseService } from '../database/database.service.js';
-import type { HealthCheckResponse } from '../types.js';
 
 @AllowAnonymous()
 @Controller('health')
@@ -12,7 +11,7 @@ export class HealthController {
 
   /** @operationId v1.health.check */
   @Get()
-  async check(): Promise<HealthCheckResponse> {
+  async check() {
     await this.databaseService.ping();
 
     return { status: 'ok' };

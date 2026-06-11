@@ -3,7 +3,6 @@ import { TypedException } from '@nestia/core';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 import { throwApiError } from '../errors/api-error.exception.js';
 import type { ApiFailure } from '../errors/api-failure.js';
-import type { HelloResponse } from '../types.js';
 import { AppService } from './app.service.js';
 
 @AllowAnonymous()
@@ -13,7 +12,7 @@ export class AppController {
 
   /** @operationId v1.app.hello */
   @Get('hello')
-  getHello(): HelloResponse {
+  getHello() {
     return this.appService.getHello();
   }
 

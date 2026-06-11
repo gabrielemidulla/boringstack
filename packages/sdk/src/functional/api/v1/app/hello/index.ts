@@ -7,8 +7,6 @@
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher";
 
-import type { HelloResponse } from "../../../../../structures/HelloResponse";
-
 /**
  * @operationId v1.app.hello
  * @controller AppController.getHello
@@ -26,7 +24,9 @@ export async function getHello(
   });
 }
 export namespace getHello {
-  export type Output = HelloResponse;
+  export type Output = {
+    message: string;
+  };
 
   export const METADATA = {
     method: "GET",

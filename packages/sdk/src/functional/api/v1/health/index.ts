@@ -7,8 +7,6 @@
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher";
 
-import type { HealthCheckResponse } from "../../../../structures/HealthCheckResponse";
-
 /**
  * @operationId v1.health.check
  * @controller HealthController.check
@@ -24,7 +22,9 @@ export async function check(connection: IConnection): Promise<check.Output> {
   });
 }
 export namespace check {
-  export type Output = HealthCheckResponse;
+  export type Output = {
+    status: string;
+  };
 
   export const METADATA = {
     method: "GET",
