@@ -1,0 +1,14 @@
+{
+  "name": "@boringstack/sdk",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@nestia/fetcher": "^11.2.1",
+    "typia": "^12.1.0"
+  }
+}

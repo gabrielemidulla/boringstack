@@ -1,0 +1,43 @@
+{
+  "name": "@boringstack/api-app",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "clean": "node -e \"const fs=require('node:fs'); for (const path of ['dist','tsconfig.build.tsbuildinfo']) fs.rmSync(path, { recursive: true, force: true })\"",
+    "build": "pnpm run clean && pnpm --filter @boringstack/i18n build && pnpm --filter @boringstack/db build && pnpm --filter @boringstack/api build && tsc -p tsconfig.build.json",
+    "dev": "pnpm run start:dev",
+    "start": "TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --conditions=development --import tsx src/main.ts",
+    "start:dev": "TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --watch --conditions=development --import tsx src/main.ts",
+    "start:prod": "node dist/main.js",
+    "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest --config ./__test__/jest-e2e.json",
+    "openapi:export": "pnpm --filter @boringstack/i18n build && pnpm --filter @boringstack/db build && pnpm --filter @boringstack/api build && cd ../.. && npx nestia all --config nestia.config.ts --project packages/api/tsconfig.json && cd apps/api && TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --import tsx ../../packages/api/scripts/export-openapi.ts"
+  },
+  "dependencies": {
+    "@boringstack/api": "workspace:*",
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.2.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.0.0",
+    "@nestia/core": "^11.2.1",
+    "@nestia/sdk": "^11.2.1",
+    "@nestjs/testing": "^11.0.1",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.0",
+    "@types/supertest": "^7.0.0",
+    "jest": "^30.0.0",
+    "nestia": "^11.2.1",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.7.3",
+    "typia": "^12.1.1"
+  }
+}

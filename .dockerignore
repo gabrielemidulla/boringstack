@@ -1,0 +1,12 @@
+.git
+.DS_Store
+.env
+node_modules
+**/node_modules
+dist
+**/dist
+build
+apps/web/.svelte-kit
+apps/web/.vite
+coverage
+*.log

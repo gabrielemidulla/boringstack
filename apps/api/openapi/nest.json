@@ -1,0 +1,304 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://github.com/samchon/nestia",
+      "description": "insert your server url"
+    }
+  ],
+  "info": {
+    "title": "boringstack API",
+    "description": "NestJS API for boringstack",
+    "version": "1.0",
+    "license": {
+      "name": "UNLICENSED"
+    }
+  },
+  "components": {
+    "schemas": {
+      "HelloResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "ApiFailure": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "const": false
+          },
+          "error": {
+            "oneOf": [
+              {
+                "const": "app.demo.unavailable"
+              },
+              {
+                "const": "app.internal"
+              }
+            ]
+          },
+          "params": {
+            "$ref": "#/components/schemas/Recordstringstringnumber"
+          }
+        },
+        "required": [
+          "success",
+          "error"
+        ]
+      },
+      "Recordstringstringnumber": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "HealthCheckResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "const": "ok"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "MeResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "email": {
+                "type": "string"
+              },
+              "emailVerified": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "image": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "email",
+              "emailVerified",
+              "name"
+            ]
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "expiresAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "token": {
+                "type": "string"
+              },
+              "ipAddress": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "userAgent": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "userId",
+              "expiresAt",
+              "token"
+            ]
+          }
+        },
+        "required": [
+          "user",
+          "session"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/app/hello": {
+      "get": {
+        "tags": [],
+        "operationId": "v1.app.hello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HelloResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "api",
+          "v1",
+          "app",
+          "hello",
+          "getHello"
+        ],
+        "x-samchon-controller": "AppController"
+      }
+    },
+    "/api/v1/app/demo-error": {
+      "get": {
+        "tags": [],
+        "operationId": "v1.app.demoError",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiFailure"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "api",
+          "v1",
+          "app",
+          "demo_error",
+          "demoError"
+        ],
+        "x-samchon-controller": "AppController"
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "tags": [],
+        "operationId": "v1.health.check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheckResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "api",
+          "v1",
+          "health",
+          "check"
+        ],
+        "x-samchon-controller": "HealthController"
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "tags": [],
+        "operationId": "v1.me.get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "api",
+          "v1",
+          "me",
+          "getMe"
+        ],
+        "x-samchon-controller": "MeController"
+      }
+    }
+  },
+  "tags": []
+}

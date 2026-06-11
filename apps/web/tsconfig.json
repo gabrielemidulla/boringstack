@@ -1,0 +1,28 @@
+{
+  "extends": ["./.svelte-kit/tsconfig.json", "../../tsconfig.base.json"],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "moduleResolution": "bundler",
+    "paths": {
+      "@": ["./src/lib"],
+      "@/*": ["./src/lib/*"],
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"],
+      "$app/types": ["./.svelte-kit/types/index.d.ts"],
+      "@boringstack/api": ["../../packages/api/src/index.ts"],
+      "@boringstack/db": ["../../packages/db/src/index.ts"],
+      "@boringstack/i18n": ["../../packages/i18n/src/index.ts"],
+      "@boringstack/i18n/errors": ["../../packages/i18n/src/catalogs/errors.ts"],
+      "@boringstack/i18n/locales": ["../../packages/i18n/src/locales.ts"],
+      "@boringstack/i18n/messages": ["../../packages/i18n/src/catalogs/messages.ts"],
+      "@boringstack/sdk": ["../../packages/sdk/src/index.ts"]
+    }
+  }
+}

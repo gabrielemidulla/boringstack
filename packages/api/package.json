@@ -1,0 +1,78 @@
+{
+  "name": "@boringstack/api",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"const fs=require('node:fs'); for (const path of ['dist','tsconfig.build.tsbuildinfo']) fs.rmSync(path, { recursive: true, force: true })\"",
+    "build": "pnpm run clean && tsc -p tsconfig.build.json",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "prepare": "ts-patch install"
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.16",
+    "@boringstack/db": "workspace:*",
+    "@boringstack/i18n": "workspace:*",
+    "@nestia/core": "^11.2.1",
+    "@nestjs/common": "^11.0.1",
+    "@t3-oss/env-core": "^0.13.11",
+    "@thallesp/nestjs-better-auth": "^2.6.1",
+    "better-auth": "^1.6.16",
+    "dotenv": "^17.4.2",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.0.0",
+    "@nestia/sdk": "^11.2.1",
+    "@nestjs/testing": "^11.0.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.0",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-patch": "^3.3.0",
+    "typescript": "^5.7.3",
+    "typia": "^12.1.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
+    "transform": {
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    },
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1",
+      "^@boringstack/db$": "<rootDir>/../../db/src/index.ts",
+      "^@boringstack/i18n/errors$": "<rootDir>/../../i18n/src/catalogs/errors.ts"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
