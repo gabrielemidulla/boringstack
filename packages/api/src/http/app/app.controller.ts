@@ -1,8 +1,8 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { TypedException } from '@nestia/core';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
-import { throwApiError } from '../errors/api-error.exception.js';
-import type { ApiFailure } from '../errors/api-failure.js';
+import { throwApiError } from '../../core/errors/api-error.exception.js';
+import type { ApiFailure } from '../../core/errors/api-failure.js';
 import { AppService } from './app.service.js';
 
 @AllowAnonymous()

@@ -2,7 +2,7 @@
   "name": "@boringstack/i18n",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./src/index.ts",

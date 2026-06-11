@@ -2,7 +2,7 @@
   "name": "@boringstack/api-app",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "clean": "node -e \"const fs=require('node:fs'); for (const path of ['dist','tsconfig.build.tsbuildinfo']) fs.rmSync(path, { recursive: true, force: true })\"",
@@ -12,7 +12,7 @@
     "start:dev": "TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --watch --conditions=development --import tsx src/main.ts",
     "start:prod": "node dist/main.js",
     "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest --config ./__test__/jest-e2e.json",
-    "openapi:export": "pnpm --filter @boringstack/i18n build && pnpm --filter @boringstack/db build && pnpm --filter @boringstack/api build && cd ../.. && npx nestia all --config nestia.config.ts --project packages/api/tsconfig.json && cd apps/api && TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --import tsx ../../packages/api/scripts/export-openapi.ts"
+    "openapi:export": "pnpm --filter @boringstack/i18n build && pnpm --filter @boringstack/db build && pnpm --filter @boringstack/api build && cd ../.. && npx nestia all --config nestia.config.ts --project packages/api/tsconfig.json && cd apps/api && TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --import tsx ../../packages/api/scripts/export-openapi.ts && pnpm --filter @boringstack/sdk build"
   },
   "dependencies": {
     "@boringstack/api": "workspace:*",

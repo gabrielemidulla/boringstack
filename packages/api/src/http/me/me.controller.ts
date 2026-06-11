@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { Session } from '@thallesp/nestjs-better-auth';
 import type { UserSession } from '@thallesp/nestjs-better-auth';
-import { auth } from '../auth/auth.js';
+import { auth } from '../../integrations/auth/auth.js';
 
 @Controller('me')
 export class MeController {

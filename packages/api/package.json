@@ -2,7 +2,7 @@
   "name": "@boringstack/api",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./src/index.ts",
@@ -60,7 +60,10 @@
       "^.+\\.ts$": [
         "ts-jest",
         {
-          "useESM": true
+          "useESM": true,
+          "diagnostics": {
+            "ignoreCodes": [151002]
+          }
         }
       ]
     },

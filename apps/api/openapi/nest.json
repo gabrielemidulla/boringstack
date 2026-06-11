@@ -11,7 +11,7 @@
     "description": "NestJS API for boringstack",
     "version": "1.0",
     "license": {
-      "name": "UNLICENSED"
+      "name": "MIT"
     }
   },
   "components": {

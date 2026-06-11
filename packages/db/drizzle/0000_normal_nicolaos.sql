@@ -40,13 +40,6 @@ CREATE TABLE `user` (
 	CONSTRAINT `user_email_unique` UNIQUE(`email`)
 );
 --> statement-breakpoint
-CREATE TABLE `users` (
-	`id` int AUTO_INCREMENT NOT NULL,
-	`name` varchar(255) NOT NULL,
-	`created_at` timestamp NOT NULL DEFAULT (now()),
-	CONSTRAINT `users_id` PRIMARY KEY(`id`)
-);
---> statement-breakpoint
 CREATE TABLE `verification` (
 	`id` varchar(36) NOT NULL,
 	`identifier` varchar(255) NOT NULL,

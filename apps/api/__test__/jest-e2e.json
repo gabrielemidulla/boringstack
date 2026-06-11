@@ -8,7 +8,10 @@
     "^.+\\.ts$": [
       "ts-jest",
       {
-        "useESM": true
+        "useESM": true,
+        "diagnostics": {
+          "ignoreCodes": [151002]
+        }
       }
     ]
   },

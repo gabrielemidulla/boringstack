@@ -2,10 +2,11 @@
   "name": "@boringstack/web",
   "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "pnpm --filter @boringstack/i18n build && pnpm --filter @boringstack/sdk build && vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {

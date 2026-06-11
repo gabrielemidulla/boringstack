@@ -2,8 +2,8 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../src/app.module.js';
-import { createMergedOpenApiDocument } from '../src/openapi/create-merged-openapi.js';
+import { AppModule } from '../src/core/app.module.js';
+import { createMergedOpenApiDocument } from '../src/integrations/openapi/create-merged-openapi.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '../../..');
 const outputDir = join(repoRoot, 'apps/api/openapi');

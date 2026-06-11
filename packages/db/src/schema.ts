@@ -1,19 +1,12 @@
 import {
   boolean,
   index,
-  int,
   mysqlTable,
   text,
   timestamp,
   uniqueIndex,
   varchar,
 } from 'drizzle-orm/mysql-core';
-
-export const users = mysqlTable('users', {
-  id: int('id').primaryKey().autoincrement(),
-  name: varchar('name', { length: 255 }).notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-});
 
 export const user = mysqlTable('user', {
   id: varchar('id', { length: 36 }).primaryKey(),

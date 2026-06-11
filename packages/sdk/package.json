@@ -2,10 +2,20 @@
   "name": "@boringstack/sdk",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"const fs=require('node:fs'); for (const path of ['dist','tsconfig.build.tsbuildinfo']) fs.rmSync(path, { recursive: true, force: true })\"",
+    "build": "pnpm run clean && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@nestia/fetcher": "^11.2.1",

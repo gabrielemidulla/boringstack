@@ -1,6 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
-import { DatabaseService } from '../database/database.service.js';
+import { DatabaseService } from '../../integrations/database/database.service.js';
 
 @AllowAnonymous()
 @Controller('health')

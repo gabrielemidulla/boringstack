@@ -2,7 +2,7 @@
   "name": "boringstack",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "packageManager": "pnpm@10.10.0",
   "scripts": {
     "build": "pnpm -r --if-present build",
@@ -12,7 +12,8 @@
     "db:generate": "pnpm --filter @boringstack/db db:generate",
     "db:migrate": "pnpm --filter @boringstack/db db:migrate",
     "db:push": "pnpm --filter @boringstack/db db:push",
-    "lint": "eslint \"{apps,packages}/**/*.ts\" --fix",
+    "lint": "eslint \"{apps,packages}/**/*.ts\"",
+    "lint:fix": "eslint \"{apps,packages}/**/*.ts\" --fix",
     "test": "pnpm -r --if-present test",
     "test:e2e": "pnpm --filter @boringstack/api-app test:e2e",
     "openapi:export": "pnpm --filter @boringstack/api-app openapi:export"

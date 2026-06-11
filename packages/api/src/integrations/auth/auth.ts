@@ -2,7 +2,7 @@ import { drizzleAdapter } from '@better-auth/drizzle-adapter';
 import { account, db, session, user, verification } from '@boringstack/db';
 import { betterAuth } from 'better-auth';
 import { openAPI } from 'better-auth/plugins';
-import { apiEnv } from '../env.js';
+import { apiEnv } from '../../core/env.js';
 
 export const auth = betterAuth({
   appName: 'boringstack',

@@ -1,8 +1,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { page } from '$app/state';
   import { toast } from 'svelte-sonner';
   import { signUp } from '$lib/auth-client';
-  import { PRIVATE_PATH, SIGN_IN_PATH } from '$lib/auth/routes';
+  import { PRIVATE_PATH, SIGN_IN_PATH, safeRedirectPath } from '$lib/auth/routes';
   import { refetchSession } from '$lib/auth/session.svelte';
   import { Button } from '$lib/components/ui/button';
   import * as Card from '$lib/components/ui/card';
@@ -13,6 +14,9 @@
   let email = $state('');
   let password = $state('');
   let loading = $state(false);
+  const redirectPath = $derived(
+    safeRedirectPath(page.url.searchParams.get('next')) ?? PRIVATE_PATH,
+  );
 
   async function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
@@ -32,7 +36,7 @@
 
       await refetchSession();
       toast.success('Account created. You are signed in.');
-      await goto(PRIVATE_PATH);
+      await goto(redirectPath);
     } catch {
       toast.error('Could not create account. Please try again.');
     } finally {
