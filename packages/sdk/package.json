@@ -14,8 +14,8 @@
     }
   },
   "scripts": {
-    "clean": "node -e \"const fs=require('node:fs'); for (const path of ['dist','tsconfig.build.tsbuildinfo']) fs.rmSync(path, { recursive: true, force: true })\"",
-    "build": "pnpm run clean && tsc -p tsconfig.build.json"
+    "clean": "rm -rf dist tsconfig.build.tsbuildinfo",
+    "build": "vp run clean && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@nestia/fetcher": "^11.2.1",

@@ -3,12 +3,16 @@
 apps/*/dist
 apps/*/build
 packages/*/dist
+**/src/**/*.js
+**/src/**/*.d.ts
+**/src/**/*.js.map
 /node_modules
 **/node_modules
 /build
 *.tsbuildinfo
-apps/web/.svelte-kit
-apps/web/.vite
+**/.svelte-kit
+**/.vite
+.vite-hooks
 
 # Logs
 logs

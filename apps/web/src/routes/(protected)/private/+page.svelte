@@ -1,39 +1,39 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import { toast } from 'svelte-sonner';
-  import { signOut } from '$lib/auth-client';
-  import { authSession, refetchSession } from '$lib/auth/session.svelte';
-  import { SIGN_IN_PATH } from '$lib/auth/routes';
-  import { Button } from '$lib/components/ui/button';
-  import * as Card from '$lib/components/ui/card';
-  import { translateAuthError } from '$lib/auth/errors';
-  import { m } from '$lib/i18n';
+import { goto } from "$app/navigation";
+import { toast } from "svelte-sonner";
+import { signOut } from "$lib/auth-client";
+import { authSession, refetchSession } from "$lib/auth/session.svelte";
+import { SIGN_IN_PATH } from "$lib/auth/routes";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
+import { translateAuthError } from "$lib/auth/errors";
+import { m } from "$lib/i18n";
 
-  const session = $derived(authSession());
-  const user = $derived(session.data?.user);
+const session = $derived(authSession());
+const user = $derived(session.data?.user);
 
-  let signingOut = $state(false);
+let signingOut = $state(false);
 
-  async function handleSignOut() {
-    signingOut = true;
+async function handleSignOut() {
+  signingOut = true;
 
-    try {
-      const { error } = await signOut();
+  try {
+    const { error } = await signOut();
 
-      if (error) {
-        toast.error(translateAuthError(error, 'auth.private.toastSignOutError'));
-        return;
-      }
-
-      await refetchSession();
-      toast.success(m('auth.private.toastSignOutSuccess'));
-      await goto(SIGN_IN_PATH);
-    } catch {
-      toast.error(m('auth.private.toastSignOutErrorRetry'));
-    } finally {
-      signingOut = false;
+    if (error) {
+      toast.error(translateAuthError(error, "auth.private.toastSignOutError"));
+      return;
     }
+
+    await refetchSession();
+    toast.success(m("auth.private.toastSignOutSuccess"));
+    await goto(SIGN_IN_PATH);
+  } catch {
+    toast.error(m("auth.private.toastSignOutErrorRetry"));
+  } finally {
+    signingOut = false;
   }
+}
 </script>
 
 <svelte:head>

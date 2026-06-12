@@ -2,14 +2,17 @@ FROM node:22-alpine AS deps
 
 WORKDIR /app
 
-RUN corepack enable
+RUN apk add --no-cache curl bash libstdc++ \
+  && curl -fsSL https://vite.plus | bash
 
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+ENV PATH="/root/.vite-plus/bin:${PATH}"
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml vite.config.ts ./
 COPY apps/web/package.json apps/web/package.json
 COPY packages/i18n/package.json packages/i18n/package.json
 COPY packages/sdk/package.json packages/sdk/package.json
 
-RUN pnpm install --frozen-lockfile
+RUN vp install --frozen-lockfile
 
 FROM deps AS build
 
@@ -18,7 +21,7 @@ COPY apps/web apps/web
 COPY packages/i18n packages/i18n
 COPY packages/sdk packages/sdk
 
-RUN pnpm --filter @boringstack/web build
+RUN vp run --filter @boringstack/web build
 
 FROM nginx:alpine AS runner
 

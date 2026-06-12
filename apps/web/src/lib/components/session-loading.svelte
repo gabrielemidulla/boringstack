@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Loading03Icon } from '@hugeicons/core-free-icons';
-  import { HugeiconsIcon } from '@hugeicons/svelte';
-  import { m } from '$lib/i18n';
+import { Loading03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/svelte";
+import { m } from "$lib/i18n";
 </script>
 
 <div class="grid min-h-screen place-items-center bg-background px-4" role="status">

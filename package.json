@@ -3,35 +3,30 @@
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
-  "packageManager": "pnpm@10.10.0",
   "scripts": {
-    "build": "pnpm -r --if-present build",
-    "dev": "pnpm -r --parallel --filter @boringstack/api-app --filter @boringstack/web dev",
-    "dev:api": "pnpm --filter @boringstack/api-app start:dev",
-    "dev:web": "pnpm --filter @boringstack/web dev",
-    "db:generate": "pnpm --filter @boringstack/db db:generate",
-    "db:migrate": "pnpm --filter @boringstack/db db:migrate",
-    "db:push": "pnpm --filter @boringstack/db db:push",
-    "lint": "eslint \"{apps,packages}/**/*.ts\"",
-    "lint:fix": "eslint \"{apps,packages}/**/*.ts\" --fix",
-    "test": "pnpm -r --if-present test",
-    "test:e2e": "pnpm --filter @boringstack/api-app test:e2e",
-    "openapi:export": "pnpm --filter @boringstack/api-app openapi:export"
+    "build": "vp run -r build",
+    "dev": "vp run --parallel --filter @boringstack/api-app --filter @boringstack/web dev",
+    "dev:api": "vp run --filter @boringstack/api-app start:dev",
+    "dev:web": "vp run --filter @boringstack/web dev",
+    "db:generate": "vp run --filter @boringstack/db db:generate",
+    "db:migrate": "vp run --filter @boringstack/db db:migrate",
+    "db:push": "vp run --filter @boringstack/db db:push",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "test": "vp run -r test",
+    "test:e2e": "vp run --filter @boringstack/api-app test:e2e",
+    "openapi:export": "vp run --filter @boringstack/api-app openapi:export",
+    "prepare": "vp config"
   },
   "devDependencies": {
     "@boringstack/api": "workspace:*",
     "@nestia/sdk": "^11.2.1",
     "@nestjs/core": "^11.0.1",
-    "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.18.0",
-    "eslint": "^9.18.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.2",
     "globals": "^17.0.0",
     "nestia": "^11.2.1",
-    "prettier": "^3.4.2",
-    "typia": "12.1.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
-  }
+    "typia": "12.1.0",
+    "vite-plus": "catalog:"
+  },
+  "packageManager": "pnpm@10.10.0"
 }

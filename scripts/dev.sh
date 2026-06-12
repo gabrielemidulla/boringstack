@@ -2,4 +2,4 @@
 set -eu
 
 docker compose up mariadb -d
-pnpm run dev
+vp run dev

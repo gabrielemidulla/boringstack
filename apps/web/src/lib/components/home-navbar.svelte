@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { PRIVATE_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from '$lib/auth/routes';
-  import { isAuthenticated, isAuthReady } from '$lib/auth/session.svelte';
-  import LocaleSwitcher from '$lib/components/locale-switcher.svelte';
-  import { Button } from '$lib/components/ui/button';
-  import { Skeleton } from '$lib/components/ui/skeleton';
-  import { m } from '$lib/i18n';
+import { PRIVATE_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from "$lib/auth/routes";
+import { isAuthenticated, isAuthReady } from "$lib/auth/session.svelte";
+import LocaleSwitcher from "$lib/components/locale-switcher.svelte";
+import { Button } from "$lib/components/ui/button";
+import { Skeleton } from "$lib/components/ui/skeleton";
+import { m } from "$lib/i18n";
 
-  const ready = $derived(isAuthReady());
-  const signedIn = $derived(isAuthenticated());
+const ready = $derived(isAuthReady());
+const signedIn = $derived(isAuthenticated());
 </script>
 
 <header

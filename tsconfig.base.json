@@ -1,16 +1,6 @@
 {
   "compilerOptions": {
     "customConditions": ["development"],
-    "resolvePackageJsonExports": true,
-    "baseUrl": ".",
-    "paths": {
-      "@boringstack/api": ["packages/api/src/index.ts"],
-      "@boringstack/db": ["packages/db/src/index.ts"],
-      "@boringstack/i18n": ["packages/i18n/src/index.ts"],
-      "@boringstack/i18n/errors": ["packages/i18n/src/catalogs/errors.ts"],
-      "@boringstack/i18n/locales": ["packages/i18n/src/locales.ts"],
-      "@boringstack/i18n/messages": ["packages/i18n/src/catalogs/messages.ts"],
-      "@boringstack/sdk": ["packages/sdk/src/index.ts"]
-    }
+    "resolvePackageJsonExports": true
   }
 }

@@ -4,11 +4,7 @@
     "isolatedModules": false,
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": "./src",
-    "types": [
-      "node",
-      "jest"
-    ],
+    "types": ["node", "jest"],
     "plugins": [
       {
         "transform": "typia/lib/transform"
@@ -28,8 +24,5 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": [
-    "src/**/*",
-    "scripts/**/*"
-  ]
+  "include": ["src/**/*"]
 }

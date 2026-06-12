@@ -16,23 +16,23 @@ Boring, type-safe full-stack monorepo: NestJS + Drizzle (MariaDB) + Better Auth 
 ## Development
 
 ```bash
-pnpm install
+vp install
 cp .env.example .env
 docker compose up mariadb
-pnpm dev
+vp run dev
 ```
 
 - API: http://localhost:3000
 - Web: http://localhost:5173
 
-`pnpm dev:api` / `pnpm dev:web` run either side alone.
+`vp run dev:api` / `vp run dev:web` run either side alone.
 
 ## SDK / OpenAPI
 
 After changing API routes, regenerate the SDK and OpenAPI spec:
 
 ```bash
-pnpm openapi:export
+vp run openapi:export
 ```
 
 The web app imports the client from `@boringstack/sdk`. Swagger UI is served at `http://localhost:3000/api` from `apps/api/openapi/openapi.json`.
@@ -40,9 +40,9 @@ The web app imports the client from `@boringstack/sdk`. Swagger UI is served at 
 ## Database
 
 ```bash
-pnpm db:generate   # generate migrations from schema
-pnpm db:migrate    # apply migrations
-pnpm db:push       # push schema directly (dev)
+vp run db:generate   # generate migrations from schema
+vp run db:migrate    # apply migrations
+vp run db:push       # push schema directly (dev)
 ```
 
 ## Auth

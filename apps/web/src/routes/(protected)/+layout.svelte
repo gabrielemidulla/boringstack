@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import { isAuthenticated, isAuthReady } from '$lib/auth/session.svelte';
-  import { SIGN_IN_PATH } from '$lib/auth/routes';
-  import HomeNavbar from '$lib/components/home-navbar.svelte';
-  import SessionLoading from '$lib/components/session-loading.svelte';
+import { goto } from "$app/navigation";
+import { isAuthenticated, isAuthReady } from "$lib/auth/session.svelte";
+import { SIGN_IN_PATH } from "$lib/auth/routes";
+import HomeNavbar from "$lib/components/home-navbar.svelte";
+import SessionLoading from "$lib/components/session-loading.svelte";
 
-  let { children } = $props();
+let { children } = $props();
 
-  const ready = $derived(isAuthReady());
-  const signedIn = $derived(isAuthenticated());
+const ready = $derived(isAuthReady());
+const signedIn = $derived(isAuthenticated());
 
-  $effect(() => {
-    if (!ready || signedIn) {
-      return;
-    }
+$effect(() => {
+  if (!ready || signedIn) {
+    return;
+  }
 
-    void goto(SIGN_IN_PATH, { replaceState: true });
-  });
+  void goto(SIGN_IN_PATH, { replaceState: true });
+});
 </script>
 
 <HomeNavbar />

@@ -5,14 +5,14 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "clean": "node -e \"const fs=require('node:fs'); for (const path of ['dist','tsconfig.build.tsbuildinfo']) fs.rmSync(path, { recursive: true, force: true })\"",
-    "build": "pnpm run clean && pnpm --filter @boringstack/i18n build && pnpm --filter @boringstack/db build && pnpm --filter @boringstack/api build && tsc -p tsconfig.build.json",
-    "dev": "pnpm run start:dev",
+    "clean": "rm -rf dist tsconfig.build.tsbuildinfo",
+    "build": "vp run clean && vp run @boringstack/i18n#build && vp run @boringstack/db#build && vp run @boringstack/api#build && tsc -p tsconfig.build.json",
+    "dev": "vp run start:dev",
     "start": "TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --conditions=development --import tsx src/main.ts",
     "start:dev": "TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --watch --conditions=development --import tsx src/main.ts",
     "start:prod": "node dist/main.js",
     "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest --config ./__test__/jest-e2e.json",
-    "openapi:export": "pnpm --filter @boringstack/i18n build && pnpm --filter @boringstack/db build && pnpm --filter @boringstack/api build && cd ../.. && npx nestia all --config nestia.config.ts --project packages/api/tsconfig.json && cd apps/api && TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --import tsx ../../packages/api/scripts/export-openapi.ts && pnpm --filter @boringstack/sdk build"
+    "openapi:export": "vp run @boringstack/i18n#build && vp run @boringstack/db#build && vp run @boringstack/api#build && cd ../.. && vp exec nestia all --config nestia.config.ts --project packages/api/tsconfig.json && cd apps/api && TSX_TSCONFIG_PATH=../../packages/api/tsconfig.json node --import tsx ../../packages/api/scripts/export-openapi.ts && vp run @boringstack/sdk#build"
   },
   "dependencies": {
     "@boringstack/api": "workspace:*",
