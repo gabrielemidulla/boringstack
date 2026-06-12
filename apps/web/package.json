@@ -12,7 +12,7 @@
   "dependencies": {
     "@boringstack/i18n": "workspace:*",
     "@boringstack/sdk": "workspace:*",
-    "@sveltejs/adapter-node": "^5.5.4",
+    "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.64.0",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "better-auth": "^1.6.16",

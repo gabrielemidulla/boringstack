@@ -21,6 +21,10 @@ export function m(
   return tMessage(code, getLocale(), params);
 }
 
+export function isErrorCode(code: string): code is ErrorCode {
+  return errorCodeSchema.safeParse(code).success;
+}
+
 export function isApiFailure(value: unknown): value is ApiFailure<ErrorCode> {
   if (typeof value !== 'object' || value === null) {
     return false;

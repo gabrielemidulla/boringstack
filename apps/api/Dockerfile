@@ -32,6 +32,7 @@ COPY --from=deps /app/packages/api/node_modules ./packages/api/node_modules
 COPY --from=deps /app/packages/db/node_modules ./packages/db/node_modules
 COPY --from=deps /app/packages/i18n/node_modules ./packages/i18n/node_modules
 COPY --from=build /app/apps/api/dist ./apps/api/dist
+COPY --from=build /app/apps/api/openapi ./apps/api/openapi
 COPY --from=build /app/packages/api/dist ./packages/api/dist
 COPY --from=build /app/packages/db/dist ./packages/db/dist
 COPY --from=build /app/packages/i18n/dist ./packages/i18n/dist

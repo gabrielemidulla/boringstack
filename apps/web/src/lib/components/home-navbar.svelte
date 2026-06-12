@@ -1,6 +1,7 @@
 <script lang="ts">
   import { PRIVATE_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from '$lib/auth/routes';
   import { isAuthenticated } from '$lib/auth/session.svelte';
+  import LocaleSwitcher from '$lib/components/locale-switcher.svelte';
   import { Button } from '$lib/components/ui/button';
   import { m } from '$lib/i18n';
 
@@ -15,6 +16,7 @@
   </a>
 
   <div class="flex items-center gap-2">
+    <LocaleSwitcher />
     {#if signedIn}
       <Button href={PRIVATE_PATH}>{m('nav.dashboard')}</Button>
     {:else}

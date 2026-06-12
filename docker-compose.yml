@@ -42,9 +42,6 @@ services:
       context: .
       dockerfile: apps/web/Dockerfile
     restart: unless-stopped
-    environment:
-      HOST: 0.0.0.0
-      PORT: 3001
     ports:
       - '${WEB_PORT:-3001}:3001'
     depends_on:

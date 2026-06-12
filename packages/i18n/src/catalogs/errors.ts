@@ -1,4 +1,5 @@
-import { defineErrorCatalog, err } from '../core.js';
+import { authErrors } from './auth-errors.js';
+import { defineErrorCatalog, defineExternalErrorSource, err } from '../core.js';
 
 export const {
   catalog: errorCatalog,
@@ -26,6 +27,17 @@ export const {
       fr: 'Une erreur est survenue.',
     }),
   },
+  auth: authErrors,
 } as const);
 
 export type ErrorCode = (typeof errorCodes)[number];
+
+export const betterAuthErrorSource = defineExternalErrorSource(
+  errorCatalog,
+  'betterAuth',
+);
+
+export { authErrors };
+export { authErrors as betterAuthErrors } from './auth-errors.js';
+export { resolveExternalErrorCode } from '../core.js';
+export type { ExternalErrorKey, ExternalErrorLike } from '../core.js';

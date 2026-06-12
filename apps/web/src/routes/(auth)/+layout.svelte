@@ -3,6 +3,7 @@
   import { PRIVATE_PATH } from '$lib/auth/routes';
   import { isAuthenticated, isAuthReady } from '$lib/auth/session.svelte';
   import HomeNavbar from '$lib/components/home-navbar.svelte';
+  import SessionLoading from '$lib/components/session-loading.svelte';
 
   let { children } = $props();
 
@@ -21,9 +22,7 @@
 <HomeNavbar />
 
 {#if !ready}
-  <div class="grid min-h-screen place-items-center bg-background px-4">
-    <p class="text-sm text-muted-foreground">Checking session…</p>
-  </div>
+  <SessionLoading />
 {:else if !signedIn}
   {@render children()}
 {/if}

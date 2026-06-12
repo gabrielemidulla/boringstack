@@ -9,6 +9,8 @@
   import * as Card from '$lib/components/ui/card';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
+  import { translateAuthError } from '$lib/auth/errors';
+  import { m } from '$lib/i18n';
 
   let name = $state('');
   let email = $state('');
@@ -30,15 +32,15 @@
       });
 
       if (error) {
-        toast.error(error.message ?? 'Could not create account.');
+        toast.error(translateAuthError(error, 'auth.signUp.toastError'));
         return;
       }
 
       await refetchSession();
-      toast.success('Account created. You are signed in.');
+      toast.success(m('auth.signUp.toastSuccess'));
       await goto(redirectPath);
     } catch {
-      toast.error('Could not create account. Please try again.');
+      toast.error(m('auth.signUp.toastErrorRetry'));
     } finally {
       loading = false;
     }
@@ -46,49 +48,49 @@
 </script>
 
 <svelte:head>
-  <title>Sign up · boringstack</title>
+  <title>{m('auth.signUp.pageTitle')}</title>
 </svelte:head>
 
 <main class="grid min-h-screen place-items-center bg-background px-4 py-10">
   <Card.Root class="w-full max-w-sm">
     <Card.Header>
-      <Card.Title>Sign up</Card.Title>
-      <Card.Description>Create an account to get started.</Card.Description>
+      <Card.Title>{m('nav.signUp')}</Card.Title>
+      <Card.Description>{m('auth.signUp.description')}</Card.Description>
     </Card.Header>
 
     <Card.Content>
       <form class="grid gap-4" onsubmit={handleSubmit}>
         <div class="grid gap-2">
-          <Label for="name">Name</Label>
+          <Label for="name">{m('form.name')}</Label>
           <Input
             id="name"
             type="text"
             autocomplete="name"
-            placeholder="Jane Doe"
+            placeholder={m('form.namePlaceholder')}
             bind:value={name}
             required
           />
         </div>
 
         <div class="grid gap-2">
-          <Label for="email">Email</Label>
+          <Label for="email">{m('form.email')}</Label>
           <Input
             id="email"
             type="email"
             autocomplete="email"
-            placeholder="you@example.com"
+            placeholder={m('form.emailPlaceholder')}
             bind:value={email}
             required
           />
         </div>
 
         <div class="grid gap-2">
-          <Label for="password">Password</Label>
+          <Label for="password">{m('form.password')}</Label>
           <Input
             id="password"
             type="password"
             autocomplete="new-password"
-            placeholder="••••••••"
+            placeholder={m('form.passwordPlaceholder')}
             bind:value={password}
             minlength={8}
             required
@@ -96,16 +98,16 @@
         </div>
 
         <Button type="submit" class="w-full" size="lg" disabled={loading}>
-          {loading ? 'Creating account…' : 'Sign up'}
+          {loading ? m('auth.signUp.submitting') : m('nav.signUp')}
         </Button>
       </form>
     </Card.Content>
 
     <Card.Footer class="justify-center">
       <p class="text-sm text-muted-foreground">
-        Already have an account?
+        {m('auth.signUp.hasAccount')}
         <Button href={SIGN_IN_PATH} variant="link" class="h-auto p-0">
-          Sign in
+          {m('nav.signIn')}
         </Button>
       </p>
     </Card.Footer>

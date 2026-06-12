@@ -1,5 +1,13 @@
 import { describe, expect, it } from '@jest/globals';
-import { defineErrorCatalog, defineMessageCatalog, err, msg } from './core.js';
+import {
+  defineErrorCatalog,
+  defineExternalErrorSource,
+  defineMessageCatalog,
+  err,
+  msg,
+  resolveExternalErrorCode,
+  withExternalErrorAliases,
+} from './core.js';
 
 const allLocales = {
   en: 'English',
@@ -72,5 +80,66 @@ describe('defineMessageCatalog', () => {
   it('translates UI messages', () => {
     expect(t('app.title', 'en')).toBe('Hello');
     expect(t('app.title', 'de')).toBe('Hallo');
+  });
+});
+
+describe('external error sources', () => {
+  const catalog = {
+    payment: {
+      declined: withExternalErrorAliases(
+        err(402, {
+          ...allLocales,
+          en: 'Card declined.',
+        }),
+        {
+          gateway: {
+            codes: ['card_declined', 402],
+            messages: true,
+          },
+        },
+      ),
+      unavailable: withExternalErrorAliases(
+        err(503, {
+          ...allLocales,
+          en: 'Payment service unavailable.',
+        }),
+        {
+          gateway: {
+            codes: ['E_UNAVAILABLE'],
+            messages: ['Issuer unavailable'],
+          },
+        },
+      ),
+    },
+  } as const;
+
+  const source = defineExternalErrorSource(catalog, 'gateway');
+
+  it('maps string and number provider codes to internal error codes', () => {
+    expect(resolveExternalErrorCode(source, { code: 'card_declined' })).toBe(
+      'payment.declined',
+    );
+    expect(resolveExternalErrorCode(source, { code: 402 })).toBe(
+      'payment.declined',
+    );
+  });
+
+  it('maps provider messages when no known code is present', () => {
+    expect(
+      resolveExternalErrorCode(source, {
+        message: '  CARD DECLINED. ',
+      }),
+    ).toBe('payment.declined');
+    expect(
+      resolveExternalErrorCode(source, {
+        message: 'Issuer unavailable',
+      }),
+    ).toBe('payment.unavailable');
+  });
+
+  it('returns undefined for unknown provider errors', () => {
+    expect(resolveExternalErrorCode(source, { code: 'missing' })).toBe(
+      undefined,
+    );
   });
 });

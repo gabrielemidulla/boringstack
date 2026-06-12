@@ -5,10 +5,22 @@ export type {
   CatalogLeaf,
   DotKeys,
   ErrEntry,
+  ExternalErrorKey,
+  ExternalErrorLike,
+  ExternalErrorSource,
   MsgEntry,
 } from './core.js';
-export { defineErrorCatalog, defineMessageCatalog, err, msg } from './core.js';
 export {
+  defineErrorCatalog,
+  defineExternalErrorSource,
+  defineMessageCatalog,
+  err,
+  msg,
+  resolveExternalErrorCode,
+  withExternalErrorAliases,
+} from './core.js';
+export {
+  betterAuthErrorSource,
   errorCatalog,
   errorCodeSchema,
   errorCodes,

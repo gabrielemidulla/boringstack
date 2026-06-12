@@ -6,6 +6,7 @@ export type ErrEntry = {
   readonly status: number;
   readonly text: Record<Locale, string>;
   readonly params?: readonly string[];
+  readonly external?: ExternalErrorAliases;
 };
 
 export type MsgEntry = {
@@ -15,6 +16,27 @@ export type MsgEntry = {
 };
 
 export type CatalogLeaf = ErrEntry | MsgEntry;
+
+export type ExternalErrorKey = string | number;
+
+export type ExternalErrorAliasSet = {
+  readonly codes?: readonly ExternalErrorKey[];
+  readonly messages?: true | readonly string[];
+};
+
+export type ExternalErrorAliases = Readonly<
+  Record<string, ExternalErrorAliasSet>
+>;
+
+export type ExternalErrorLike = {
+  readonly code?: ExternalErrorKey | null;
+  readonly message?: string | null;
+};
+
+export type ExternalErrorSource<Code extends string = string> = {
+  readonly codes: Readonly<Record<string, Code>>;
+  readonly messages: Readonly<Record<string, Code>>;
+};
 
 export type ApiFailure<C extends string = string> = {
   success: false;
@@ -56,6 +78,13 @@ export function msg<const P extends readonly string[] = []>(
   params?: P,
 ): MsgEntry & { params?: P } {
   return { _tag: 'msg', text, params };
+}
+
+export function withExternalErrorAliases<
+  const Leaf extends ErrEntry,
+  const Aliases extends ExternalErrorAliases,
+>(leaf: Leaf, external: Aliases): Leaf & { readonly external: Aliases } {
+  return { ...leaf, external };
 }
 
 export function interpolate(
@@ -111,6 +140,97 @@ function translateLeaf(
   params?: Record<string, string | number>,
 ): string {
   return interpolate(leaf.text[locale], params);
+}
+
+export function defineExternalErrorSource<
+  const T extends Record<string, unknown>,
+>(catalog: T, source: string): ExternalErrorSource<DotKeys<T>> {
+  type Code = DotKeys<T>;
+  const flat = flattenCatalog(catalog);
+  const codes: Record<string, Code> = {};
+  const messages: Record<string, Code> = {};
+
+  for (const [path, leaf] of Object.entries(flat)) {
+    if (leaf._tag !== 'err') {
+      continue;
+    }
+
+    const aliases = leaf.external?.[source];
+
+    if (!aliases) {
+      continue;
+    }
+
+    for (const code of aliases.codes ?? []) {
+      assignExternalAlias(codes, normalizeExternalErrorKey(code), path as Code);
+    }
+
+    if (aliases.messages === true) {
+      assignExternalAlias(
+        messages,
+        normalizeExternalErrorMessage(leaf.text.en),
+        path as Code,
+      );
+      continue;
+    }
+
+    for (const message of aliases.messages ?? []) {
+      assignExternalAlias(
+        messages,
+        normalizeExternalErrorMessage(message),
+        path as Code,
+      );
+    }
+  }
+
+  return { codes, messages };
+}
+
+export function resolveExternalErrorCode<Code extends string>(
+  source: ExternalErrorSource<Code>,
+  error: ExternalErrorLike | null | undefined,
+): Code | undefined {
+  if (!error) {
+    return undefined;
+  }
+
+  if (error.code !== undefined && error.code !== null) {
+    const code = source.codes[normalizeExternalErrorKey(error.code)];
+
+    if (code) {
+      return code;
+    }
+  }
+
+  if (error.message) {
+    return source.messages[normalizeExternalErrorMessage(error.message)];
+  }
+
+  return undefined;
+}
+
+function normalizeExternalErrorKey(code: ExternalErrorKey): string {
+  return String(code);
+}
+
+function normalizeExternalErrorMessage(message: string): string {
+  return message.trim().toLowerCase();
+}
+
+function assignExternalAlias<Code extends string>(
+  aliases: Record<string, Code>,
+  alias: string,
+  code: Code,
+): void {
+  const existing = aliases[alias];
+
+  if (existing && existing !== code) {
+    throw new Error(
+      `External error alias "${alias}" maps to both "${existing}" and "${code}".`,
+    );
+  }
+
+  aliases[alias] = code;
 }
 
 export function defineErrorCatalog<const T extends Record<string, unknown>>(
